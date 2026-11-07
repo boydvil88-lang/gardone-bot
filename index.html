@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>گردونه اختصاصی احسان و تسنیم ✨</title>
+    
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vazirmatn Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: {
+                            950: '#09090b',
+                            900: '#121216',
+                            800: '#1c1c24',
+                            700: '#2a2a35',
+                        },
+                        ruby: {
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        body {
+            background-color: #09090b;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(225, 29, 72, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(245, 158, 11, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            color: #fafafa;
+            font-family: 'Vazirmatn', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(18, 18, 22, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-pill {
+            background: rgba(28, 28, 36, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-pill:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .glass-pill.active-preset {
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.28), rgba(245, 158, 11, 0.18));
+            border-color: rgba(251, 191, 36, 0.55);
+            box-shadow: 0 0 20px rgba(225, 29, 72, 0.25);
+        }
+
+        /* Wheel Outer Halo */
+        .wheel-container {
+            position: relative;
+            filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.85));
+        }
+
+        .wheel-glow {
+            position: absolute;
+            inset: -12px;
+            border-radius: 9999px;
+            background: conic-gradient(from 0deg, rgba(225, 29, 72, 0.35), rgba(245, 158, 11, 0.35), rgba(139, 92, 246, 0.25), rgba(225, 29, 72, 0.35));
+            filter: blur(22px);
+            z-index: 0;
+            opacity: 0.75;
+            transition: opacity 0.5s ease;
+        }
+
+        .wheel-spinning .wheel-glow {
+            opacity: 1;
+            filter: blur(28px);
+        }
+
+        /* Center Spin Button */
+        .center-hub-btn {
+            background: radial-gradient(circle at 30% 30%, #fb7185, #e11d48 55%, #881337 100%);
+            box-shadow: 
+                0 0 0 4px #121216,
+                0 0 0 7px rgba(251, 191, 36, 0.7),
+                0 10px 25px rgba(225, 29, 72, 0.65),
+                inset 0 2px 5px rgba(255, 255, 255, 0.45);
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+        }
+
+        .center-hub-btn:active:not(:disabled) {
+            transform: translate(-50%, -50%) scale(0.92);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(18, 18, 22, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 9999px;
+        }
+
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.04); opacity: 1; }
+        }
+
+        .winner-badge-anim {
+            animation: pulseGlow 2.4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="pb-12 selection:bg-ruby-600 selection:text-white">
+
+    <!-- Fullscreen Confetti Overlay Canvas -->
+    <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+    <!-- Toast Notification -->
+    <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] pointer-events-none transition-all duration-300 opacity-0 -translate-y-4">
+        <div class="glass-panel px-4 py-2.5 rounded-2xl border border-gold-400/40 shadow-2xl flex items-center gap-2.5 text-sm font-medium text-zinc-100">
+            <span id="toastIcon">✨</span>
+            <span id="toastText">پیام سیستم</span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-md mx-auto px-4 pt-3 flex flex-col gap-4 relative z-10">
+
+        <!-- 1. TOP HEADER & TURN BAR -->
+        <header class="glass-panel rounded-3xl p-3.5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-ruby-600 to-amber-500 p-[1px] shadow-lg shadow-ruby-600/25">
+                        <div class="w-full h-full bg-obsidian-900 rounded-[15px] flex items-center justify-center text-lg">
+                            🎡
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-base font-extrabold tracking-tight bg-gradient-to-l from-white via-rose-100 to-amber-200 bg-clip-text text-transparent">
+                            گردونه اختصاصی احسان و تسنیم ✨
+                        </h1>
+                        <p class="text-[11px] text-zinc-400 font-medium">تصمیم‌گیرنده هوشمند و عاشقانه دو نفره</p>
+                    </div>
+                </div>
+
+                <!-- Action Icons: Sound & Share Link -->
+                <div class="flex items-center gap-1.5">
+                    <button id="muteBtn" onclick="toggleMute()" title="قطع/وصل صدا" class="w-9 h-9 rounded-xl glass-pill flex items-center justify-center text-zinc-200 active:scale-90 transition">
+                        <span id="muteIcon" class="text-base">🔊</span>
+                    </button>
+                    <button onclick="openShareModal()" title="اشتراک‌گذاری گردونه با تسنیم" class="h-9 px-3 rounded-xl bg-gradient-to-r from-ruby-600/30 to-amber-500/25 border border-amber-400/35 flex items-center gap-1.5 text-xs font-bold text-amber-200 active:scale-95 transition">
+                        <span>🔗</span>
+                        <span>همگام‌سازی</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Turn Selector Segmented Pill -->
+            <div class="bg-obsidian-950/90 p-1 rounded-2xl border border-white/5 grid grid-cols-3 gap-1">
+                <button onclick="setTurn('ehsan')" id="turnBtn-ehsan" class="turn-btn py-2 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                    <span>🤴</span>
+                    <span>نوبت احسان</span>
+                </button>
+                <button onclick="setTurn('tasnim')" id="turnBtn-tasnim" class="turn-btn py-2 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                    <span>👸</span>
+                    <span>نوبت تسنیم</span>
+                </button>
+                <button onclick="setTurn('auto')" id="turnBtn-auto" class="turn-btn py-2 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                    <span>🎲</span>
+                    <span>نوبتی خودکار</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. PRESET CATEGORY HORIZONTAL BAR -->
+        <section class="flex flex-col gap-1.5">
+            <div class="flex items-center justify-between px-1">
+                <span class="text-xs font-bold text-zinc-400">پکیج‌های آماده دو نفره:</span>
+                <span id="sliceCountBadge" class="text-[11px] font-semibold text-amber-400/90 tabular-nums">۶ گزینه فعال</span>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="presetBar">
+                <button onclick="loadPreset('movie')" id="preset-movie" class="preset-pill glass-pill shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5">
+                    <span>🎬</span>
+                    <span>فیلم و انیمه امشب</span>
+                </button>
+                <button onclick="loadPreset('food')" id="preset-food" class="preset-pill glass-pill shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5">
+                    <span>🍕</span>
+                    <span>چی بخوریم؟</span>
+                </button>
+                <button onclick="loadPreset('challenge')" id="preset-challenge" class="preset-pill glass-pill shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5">
+                    <span>🔥</span>
+                    <span>چالش و بازی دو نفره</span>
+                </button>
+                <button onclick="loadPreset('gift')" id="preset-gift" class="preset-pill glass-pill shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5">
+                    <span>🎁</span>
+                    <span>جایزه و سورپرایز</span>
+                </button>
+                <button onclick="loadPreset('custom')" id="preset-custom" class="preset-pill glass-pill shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5">
+                    <span>⭐</span>
+                    <span>لیست شخصی ما</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. HERO INTERACTIVE WHEEL STAGE -->
+        <section class="glass-panel rounded-3xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+            
+            <!-- Current Turn Status Pill -->
+            <div class="w-full flex items-center justify-between mb-2 px-1">
+                <div class="flex items-center gap-1.5 text-xs font-semibold text-zinc-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span id="activeRollerLabel">آماده چرخش توسط احسان 🤴</span>
+                </div>
+                <label class="flex items-center gap-1.5 cursor-pointer select-none text-[11px] text-zinc-400 hover:text-zinc-200 transition">
+                    <input type="checkbox" id="eliminationToggle" onchange="toggleEliminationMode()" class="accent-ruby-600 w-3.5 h-3.5 rounded cursor-pointer">
+                    <span>حذف برنده بعد از چرخش</span>
+                </label>
+            </div>
+
+            <!-- Canvas Wheel Wrapper -->
+            <div id="wheelStage" class="wheel-container my-2 relative flex items-center justify-center w-[310px] h-[310px] sm:w-[340px] sm:h-[340px]">
+                <div class="wheel-glow"></div>
+                
+                <!-- High-DPI HTML5 Canvas -->
+                <canvas id="wheelCanvas" class="relative z-10 w-full h-full rounded-full cursor-pointer" onclick="spinWheel()"></canvas>
+
+                <!-- Center Hub Spin Button -->
+                <button id="spinCenterBtn" onclick="spinWheel()" class="center-hub-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-20 h-20 rounded-full flex flex-col items-center justify-center text-white font-black tracking-tight cursor-pointer">
+                    <span class="text-xs opacity-90 font-bold">بچرخون!</span>
+                    <span class="text-[10px] text-amber-200 font-semibold mt-0.5" id="hubSubLabel">SPIN ✨</span>
+                </button>
+            </div>
+
+            <!-- Big Bottom Spin CTA & Quick Actions -->
+            <div class="w-full grid grid-cols-4 gap-2 mt-3">
+                <button id="mainSpinBtn" onclick="spinWheel()" class="col-span-3 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-ruby-600 via-rose-500 to-amber-500 text-white font-black text-sm shadow-lg shadow-ruby-600/30 active:scale-[0.98] transition flex items-center justify-center gap-2">
+                    <span>🚀</span>
+                    <span id="mainSpinBtnText">بچرخون به نیت احسان!</span>
+                </button>
+                <button onclick="shuffleSlices()" title="بُر زدن گزینه‌ها" class="col-span-1 py-3.5 rounded-2xl glass-pill flex items-center justify-center text-sm font-bold text-zinc-200 active:scale-95">
+                    🔀 بُر بزن
+                </button>
+            </div>
+        </section>
+
+        <!-- 4. CUSTOMIZATION & HISTORY TABS -->
+        <section class="glass-panel rounded-3xl p-4 flex flex-col gap-3.5">
+            <!-- Tab Switcher -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+                <div class="flex gap-2">
+                    <button onclick="switchTab('editor')" id="tabBtn-editor" class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition bg-ruby-600 text-white">
+                        ✏️ ویرایش گزینه‌ها
+                    </button>
+                    <button onclick="switchTab('history')" id="tabBtn-history" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition text-zinc-400 hover:text-white">
+                        📜 تاریخچه چرخش‌ها
+                    </button>
+                </div>
+
+                <button onclick="saveAsPersonalPreset()" class="text-[11px] font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/25 transition">
+                    <span>💾</span>
+                    <span>ذخیره در شخصی</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: SLICE EDITOR -->
+            <div id="tabContent-editor" class="flex flex-col gap-3">
+                <!-- Add New Slice Form -->
+                <form onsubmit="addNewSlice(event)" class="flex flex-col gap-2 bg-obsidian-950/70 p-2.5 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="newSliceText" placeholder="گزینه جدید (مثلاً: دیدن اتک آن تایتان...)" maxlength="40" required
+                            class="flex-1 bg-obsidian-800/90 text-white text-xs font-medium px-3 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-ruby-500">
+                        <input type="color" id="newSliceColor" value="#e11d48" title="رنگ بخش"
+                            class="w-9 h-9 rounded-xl bg-transparent border-0 cursor-pointer shrink-0">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 pt-1">
+                        <div class="flex items-center gap-2 text-xs text-zinc-300">
+                            <span class="text-[11px] text-zinc-400">ضریب شانس:</span>
+                            <select id="newSliceWeight" class="bg-obsidian-800 text-amber-400 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-white/10 focus:outline-none">
+                                <option value="1">۱ برابر (عادی)</option>
+                                <option value="2">۲ برابر (بیشتر)</option>
+                                <option value="3">۳ برابر (زیاد)</option>
+                                <option value="4">۴ برابر (خیلی زیاد)</option>
+                                <option value="5">۵ برابر (ویژه 🔥)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold text-xs shadow-md active:scale-95 transition">
+                            + افزودن به گردونه
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Slices List -->
+                <div id="slicesListContainer" class="flex flex-col gap-2 max-h-64 overflow-y-auto pr-0.5">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <!-- Reset Current Preset Button -->
+                <div class="flex items-center justify-between pt-1 text-[11px] text-zinc-400">
+                    <span>می‌تونی ضریب شانس هر گزینه رو از ۱ تا ۵ تغییر بدی.</span>
+                    <button onclick="resetCurrentPreset()" class="text-rose-400 hover:underline font-semibold">بازنشانی پیش‌فرض</button>
+                </div>
+            </div>
+
+            <!-- TAB 2: SPIN HISTORY -->
+            <div id="tabContent-history" class="hidden flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-zinc-400 font-medium">نتایج چرخش‌های اخیر شما دو نفر:</span>
+                    <button onclick="clearHistory()" class="text-[11px] text-rose-400 hover:text-rose-300 font-bold px-2 py-1 rounded-lg bg-rose-500/10">
+                        🗑️ پاک کردن تاریخچه
+                    </button>
+                </div>
+                <div id="historyListContainer" class="flex flex-col gap-2 max-h-60 overflow-y-auto">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Credit -->
+        <footer class="text-center text-[11px] text-zinc-500 py-2">
+            ساخته شده با ❤️ مخصوص چت تلگرام <span class="text-zinc-300 font-bold">احسان و تسنیم</span>
+        </footer>
+    </div>
+
+    <!-- ==========================================
+         MODAL 1: WINNER CELEBRATION MODAL
+         ========================================== -->
+    <div id="winnerModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-opacity">
+        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 border border-amber-400/40 text-center flex flex-col items-center gap-4 relative animate-[fadeIn_0.25s_ease-out]">
+            
+            <!-- Close button -->
+            <button onclick="closeWinnerModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 text-sm">
+                ✕
+            </button>
+
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-ruby-600 to-amber-400 p-[2px] shadow-xl shadow-ruby-600/40 winner-badge-anim">
+                <div class="w-full h-full bg-obsidian-950 rounded-[14px] flex items-center justify-center text-3xl">
+                    🎉
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <span id="winnerRollerBadge" class="text-xs font-extrabold text-amber-400 tracking-wide">
+                    🤴 احسان گردونه رو چرخوند!
+                </span>
+                <h2 class="text-xs text-zinc-400 font-medium">قرعه به نام این گزینه افتاد:</h2>
+            </div>
+
+            <!-- Winning Text Card -->
+            <div class="w-full py-5 px-4 rounded-2xl bg-gradient-to-br from-ruby-600/25 via-obsidian-900 to-amber-500/20 border border-amber-400/50 shadow-inner">
+                <p id="winnerSliceTitle" class="text-2xl font-black text-white leading-snug break-words drop-shadow">
+                    دیدن انیمه
+                </p>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="w-full flex flex-col gap-2 mt-1">
+                <button onclick="copyWinnerForTelegram()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-ruby-600 to-amber-500 text-white font-extrabold text-xs shadow-lg shadow-ruby-600/30 active:scale-95 transition flex items-center justify-center gap-2">
+                    <span>📋</span>
+                    <span>کپی نتیجه شیک برای ارسال در چت تلگرام</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-2 w-full">
+                    <button id="removeWinnerBtn" onclick="removeWinnerAndSpinAgain()" class="py-2.5 px-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-bold hover:bg-rose-500/25 transition">
+                        ❌ حذف و چرخش مجدد
+                    </button>
+                    <button onclick="closeWinnerModal()" class="py-2.5 px-3 rounded-xl bg-white/10 text-zinc-200 text-xs font-bold hover:bg-white/15 transition">
+                        بستن پنجره
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 2: SHARE / SYNC WHEEL WITH TASNIM
+         ========================================== -->
+    <div id="shareModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-sm rounded-3xl p-5 border border-white/15 flex flex-col gap-4 relative">
+            <div class="flex items-center justify-between">
+                <h3 class="text-sm font-black text-amber-300 flex items-center gap-1.5">
+                    <span>🔗</span>
+                    <span>همگام‌سازی گردونه بین احسان و تسنیم</span>
+                </h3>
+                <button onclick="closeShareModal()" class="w-7 h-7 rounded-full bg-white/5 text-zinc-400 text-xs flex items-center justify-center">✕</button>
+            </div>
+
+            <p class="text-xs text-zinc-300 leading-relaxed">
+                هر وقت گزینه‌های گردونه رو تغییر دادی، کد زیر رو کپی کن و توی چت تلگرام بفرست تا اون یکی هم با زدن دکمه «بارگذاری کد» دقیقاً همین گردونه رو روی گوشیش داشته باشه!
+            </p>
+
+            <!-- Export Box -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-[11px] font-bold text-zinc-400">۱. کپی کد یا لینک گردونه فعلی:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="shareCodeOutput" readonly class="flex-1 bg-obsidian-950 text-amber-300 text-[11px] px-3 py-2 rounded-xl border border-white/10 font-mono select-all">
+                    <button onclick="copyShareCode()" class="px-3.5 py-2 rounded-xl bg-ruby-600 text-white text-xs font-bold shrink-0 active:scale-95 transition">
+                        کپی کد 📋
+                    </button>
+                </div>
+            </div>
+
+            <!-- Import Box -->
+            <div class="flex flex-col gap-1.5 pt-2 border-t border-white/10">
+                <label class="text-[11px] font-bold text-zinc-400">۲. کد گردونه‌ای که از چت کپی کردی رو اینجا وارد کن:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="shareCodeInput" placeholder="کد گردونه رو اینجا پیست کن..." class="flex-1 bg-obsidian-950 text-white text-xs px-3 py-2 rounded-xl border border-white/10 focus:outline-none focus:border-amber-400">
+                    <button onclick="importShareCode()" class="px-3.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold shrink-0 active:scale-95 transition">
+                        اعمال ✨
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         APPLICATION LOGIC (PHYSICS, AUDIO, STATE)
+         ========================================== -->
+    <script>
+        // 1. TELEGRAM WEBAPP INITIALIZATION
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            try {
+                tg.ready();
+                tg.expand();
+                tg.setHeaderColor('#09090b');
+                tg.setBackgroundColor('#09090b');
+            } catch (e) {
+                console.warn('Telegram WebApp init fallback:', e);
+            }
+        }
+
+        function triggerHaptic(type = 'light') {
+            try {
+                if (tg && tg.HapticFeedback) {
+                    if (type === 'success') {
+                        tg.HapticFeedback.notificationOccurred('success');
+                    } else {
+                        tg.HapticFeedback.impactOccurred(type);
+                    }
+                } else if (navigator.vibrate) {
+                    navigator.vibrate(type === 'success' ? [40, 60, 80] : 12);
+                }
+            } catch (e) {}
+        }
+
+        // 2. RICH ROMANTIC / OBSIDIAN COLOR PALETTE
+        const PALETTE = [
+            '#e11d48', // Crimson Ruby
+            '#1e1b4b', // Deep Midnight Indigo
+            '#d97706', // Metallic Amber Gold
+            '#4c0519', // Deep Rose Wine
+            '#7c3aed', // Royal Violet
+            '#18181b', // Obsidian Charcoal
+            '#be123c', // Vivid Burgundy
+            '#b45309'  // Warm Bronze
+        ];
+
+        // 3. PRESET PACKAGES FOR EHSAN & TASNIM
+        const DEFAULT_PRESETS = {
+            movie: {
+                title: '🎬 فیلم و انیمه امشب',
+                items: [
+                    { id: 'm1', text: 'دیدن انیمه ⛩️', weight: 1, color: '#e11d48' },
+                    { id: 'm2', text: 'فیلم ترسناک 👻', weight: 1, color: '#1e1b4b' },
+                    { id: 'm3', text: 'فیلم عاشقانه ❤️', weight: 1, color: '#be123c' },
+                    { id: 'm4', text: 'انتخاب با تسنیم 👸', weight: 1, color: '#d97706' },
+                    { id: 'm5', text: 'انتخاب با احسان 🤴', weight: 1, color: '#4c0519' },
+                    { id: 'm6', text: 'قسمت جدید سریال 🍿', weight: 1, color: '#7c3aed' }
+                ]
+            },
+            food: {
+                title: '🍕 چی بخوریم؟',
+                items: [
+                    { id: 'f1', text: 'پیتزا داغ 🍕', weight: 1, color: '#e11d48' },
+                    { id: 'f2', text: 'برگر ذغالی 🍔', weight: 1, color: '#b45309' },
+                    { id: 'f3', text: 'پاستا آلفردو 🍝', weight: 1, color: '#4c0519' },
+                    { id: 'f4', text: 'سوشی / غذای جدید 🍣', weight: 1, color: '#1e1b4b' },
+                    { id: 'f5', text: 'انتخاب با تسنیم 👸', weight: 1, color: '#d97706' },
+                    { id: 'f6', text: 'انتخاب با احسان 🤴', weight: 1, color: '#7c3aed' }
+                ]
+            },
+            challenge: {
+                title: '🔥 چالش و بازی دو نفره',
+                items: [
+                    { id: 'c1', text: 'حقیقت یا جرات 🔥', weight: 1, color: '#e11d48' },
+                    { id: 'c2', text: 'گفتن ۳ ویژگی مثبت هم 💕', weight: 1, color: '#4c0519' },
+                    { id: 'c3', text: 'فرستادن یه ویس قشنگ 🎙️', weight: 1, color: '#d97706' },
+                    { id: 'c4', text: 'تعریف خاطره اولین روز ✨', weight: 1, color: '#1e1b4b' },
+                    { id: 'c5', text: 'عکس سلفی درجا 📸', weight: 1, color: '#be123c' },
+                    { id: 'c6', text: 'پرسیدن یک سوال عمیق 🌌', weight: 1, color: '#7c3aed' }
+                ]
+            },
+            gift: {
+                title: '🎁 جایزه و سورپرایز',
+                items: [
+                    { id: 'g1', text: 'ماساژ و استراحت 💆‍♀️', weight: 1, color: '#e11d48' },
+                    { id: 'g2', text: 'خرید خوراکی موردعلاقه 🍫', weight: 1, color: '#d97706' },
+                    { id: 'g3', text: 'حق انتخاب آهنگ بعدی 🎵', weight: 1, color: '#1e1b4b' },
+                    { id: 'g4', text: 'برآورده کردن یک آرزو ⭐', weight: 1, color: '#7c3aed' },
+                    { id: 'g5', text: 'برنده شدن در بحث بعدی 😂', weight: 1, color: '#be123c' }
+                ]
+            }
+        };
+
+        // 4. APPLICATION STATE
+        let state = {
+            currentPresetKey: 'movie',
+            slices: [],
+            turnMode: 'ehsan', // 'ehsan' | 'tasnim' | 'auto'
+            lastAutoRoller: 'tasnim',
+            activeRoller: 'ehsan',
+            eliminationMode: false,
+            isMuted: false,
+            isSpinning: false,
+            currentAngle: 0,      // radians
+            angularVelocity: 0,
+            pointerDeflection: 0, // visual stopper bounce angle
+            lastSliceIndexPassed: -1,
+            lastWinnerSlice: null,
+            history: []
+        };
+
+        // 5. WEB AUDIO API SYNTHESIZER (NO EXTERNAL ASSETS REQUIRED)
+        let audioCtx = null;
+
+        function ensureAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playPegTickSound(speedRatio = 0.5) {
+            if (state.isMuted) return;
+            try {
+                ensureAudioContext();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                // Crisp woody-metallic click frequency
+                osc.type = 'triangle';
+                const baseFreq = 520 + Math.min(speedRatio * 350, 350);
+                osc.frequency.setValueAtTime(baseFreq, now);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.032);
+
+                gain.gain.setValueAtTime(0.22, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.032);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.035);
+            } catch (e) {}
+        }
+
+        function playWinFanfare() {
+            if (state.isMuted) return;
+            try {
+                ensureAudioContext();
+                if (!audioCtx) return;
+
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    const now = audioCtx.currentTime + idx * 0.09;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now);
+
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.55);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 0.56);
+                });
+            } catch (e) {}
+        }
+
+        function toggleMute() {
+            state.isMuted = !state.isMuted;
+            document.getElementById('muteIcon').textContent = state.isMuted ? '🔇' : '🔊';
+            showToast(state.isMuted ? 'صدای گردونه قطع شد' : 'صدای گردونه فعال شد', state.isMuted ? '🔇' : '🔊');
+        }
+
+        // 6. STORAGE & URL HASH SYNC HELPERS
+        function loadSavedState() {
+            try {
+                const savedHistory = localStorage.getItem('ehsan_tasnim_wheel_history');
+                if (savedHistory) state.history = JSON.parse(savedHistory);
+
+                // Check URL hash for shared wheel (#wheel=...)
+                if (window.location.hash.startsWith('#wheel=')) {
+                    const encoded = window.location.hash.replace('#wheel=', '');
+                    if (applyEncodedWheel(encoded)) {
+                        showToast('گردونه مشترک احسان و تسنیم بارگذاری شد! 🔗', '✨');
+                        return;
+                    }
+                }
+
+                const savedSlices = localStorage.getItem('ehsan_tasnim_active_slices');
+                const savedPreset = localStorage.getItem('ehsan_tasnim_active_preset');
+                if (savedSlices) {
+                    state.slices = JSON.parse(savedSlices);
+                    state.currentPresetKey = savedPreset || 'movie';
+                } else {
+                    loadPreset('movie', false);
+                }
+            } catch (e) {
+                loadPreset('movie', false);
+            }
+        }
+
+        function persistActiveWheel() {
+            try {
+                localStorage.setItem('ehsan_tasnim_active_slices', JSON.stringify(state.slices));
+                localStorage.setItem('ehsan_tasnim_active_preset', state.currentPresetKey);
+            } catch (e) {}
+        }
+
+        function saveAsPersonalPreset() {
+            try {
+                localStorage.setItem('ehsan_tasnim_custom_preset', JSON.stringify(state.slices));
+                state.currentPresetKey = 'custom';
+                persistActiveWheel();
+                updatePresetBarUI();
+                showToast('لیست فعلی در «لیست شخصی ما ⭐» ذخیره شد!', '💾');
+                triggerHaptic('light');
+            } catch (e) {}
+        }
+
+        function loadPreset(presetKey, notify = true) {
+            if (state.isSpinning) return;
+            state.currentPresetKey = presetKey;
+
+            if (presetKey === 'custom') {
+                const savedCustom = localStorage.getItem('ehsan_tasnim_custom_preset');
+                if (savedCustom) {
+                    state.slices = JSON.parse(savedCustom);
+                } else {
+                    state.slices = [
+                        { id: 'cu1', text: 'کافه گردی دو نفره ☕', weight: 1, color: '#e11d48' },
+                        { id: 'cu2', text: 'قدم زدن شبانه 🌙', weight: 1, color: '#1e1b4b' },
+                        { id: 'cu3', text: 'بازی آنلاین دو نفره 🎮', weight: 1, color: '#d97706' },
+                        { id: 'cu4', text: 'انتخاب با تسنیم 👸', weight: 1, color: '#be123c' },
+                        { id: 'cu5', text: 'انتخاب با احسان 🤴', weight: 1, color: '#7c3aed' }
+                    ];
+                }
+            } else if (DEFAULT_PRESETS[presetKey]) {
+                state.slices = JSON.parse(JSON.stringify(DEFAULT_PRESETS[presetKey].items));
+            }
+
+            persistActiveWheel();
+            updatePresetBarUI();
+            renderSliceEditorList();
+            drawWheel();
+            if (notify) {
+                triggerHaptic('light');
+                showToast('پکیج گزینه‌ها بروزرسانی شد', '🎡');
+            }
+        }
+
+        function resetCurrentPreset() {
+            if (state.currentPresetKey === 'custom') {
+                localStorage.removeItem('ehsan_tasnim_custom_preset');
+            }
+            loadPreset(state.currentPresetKey, true);
+        }
+
+        function updatePresetBarUI() {
+            document.querySelectorAll('.preset-pill').forEach(btn => {
+                btn.classList.remove('active-preset', 'text-amber-300');
+            });
+            const activeBtn = document.getElementById(`preset-${state.currentPresetKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-preset', 'text-amber-300');
+            }
+            document.getElementById('sliceCountBadge').textContent = `${toPersianDigits(state.slices.length)} گزینه فعال`;
+        }
+
+        // 7. TURN SELECTOR LOGIC
+        function setTurn(mode) {
+            state.turnMode = mode;
+            if (mode === 'ehsan') state.activeRoller = 'ehsan';
+            else if (mode === 'tasnim') state.activeRoller = 'tasnim';
+            else {
+                state.activeRoller = state.lastAutoRoller === 'ehsan' ? 'tasnim' : 'ehsan';
+            }
+            updateTurnUI();
+            triggerHaptic('light');
+        }
+
+        function updateTurnUI() {
+            ['ehsan', 'tasnim', 'auto'].forEach(mode => {
+                const btn = document.getElementById(`turnBtn-${mode}`);
+                if (state.turnMode === mode) {
+                    btn.className = 'turn-btn py-2 px-2 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 bg-gradient-to-r from-ruby-600 to-amber-500 text-white shadow-md';
+                } else {
+                    btn.className = 'turn-btn py-2 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-zinc-400 hover:text-zinc-200';
+                }
+            });
+
+            const isEhsan = state.activeRoller === 'ehsan';
+            const rollerName = isEhsan ? 'احسان 🤴' : 'تسنیم 👸';
+            document.getElementById('activeRollerLabel').textContent = `نوبت چرخش: ${rollerName}`;
+            document.getElementById('mainSpinBtnText').textContent = `بچرخون به نیت ${rollerName}!`;
+            document.getElementById('hubSubLabel').textContent = isEhsan ? 'احسان 🤴' : 'تسنیم 👸';
+        }
+
+        // 8. HTML5 CANVAS WHEEL RENDERING & PHYSICS
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function getTotalWeight() {
+            return state.slices.reduce((acc, s) => acc + (Number(s.weight) || 1), 0);
+        }
+
+        function getSliceAngles() {
+            const totalWeight = getTotalWeight();
+            let start = 0;
+            return state.slices.map((slice, index) => {
+                const weight = Number(slice.weight) || 1;
+                const arc = (weight / totalWeight) * (Math.PI * 2);
+                const segment = {
+                    index,
+                    slice,
+                    startAngle: start,
+                    endAngle: start + arc,
+                    midAngle: start + arc / 2,
+                    arc
+                };
+                start += arc;
+                return segment;
+            });
+        }
+
+        // Determine which slice is currently under the top pointer (-PI / 2)
+        function getWinningSliceAtAngle(wheelAngle) {
+            const pointerAngle = -Math.PI / 2; // 12 o'clock
+            let relativeAngle = (pointerAngle - wheelAngle) % (Math.PI * 2);
+            if (relativeAngle < 0) relativeAngle += Math.PI * 2;
+
+            const segments = getSliceAngles();
+            for (const seg of segments) {
+                if (relativeAngle >= seg.startAngle && relativeAngle < seg.endAngle) {
+                    return seg;
+                }
+            }
+            return segments[segments.length - 1];
+        }
+
+        function drawWheel() {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            const size = rect.width;
+            if (size === 0) return;
+
+            if (canvas.width !== size * dpr || canvas.height !== size * dpr) {
+                canvas.width = size * dpr;
+                canvas.height = size * dpr;
+            }
+
+            ctx.save();
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, size, size);
+
+            const cx = size / 2;
+            const cy = size / 2;
+            const outerRadius = (size / 2) - 10;
+            const wheelRadius = outerRadius - 10;
+
+            // 1. Outer Metallic Obsidian/Gold Bezel
+            const bezelGrad = ctx.createLinearGradient(0, 0, size, size);
+            bezelGrad.addColorStop(0, '#fbbf24');
+            bezelGrad.addColorStop(0.5, '#e11d48');
+            bezelGrad.addColorStop(1, '#78350f');
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, outerRadius, 0, Math.PI * 2);
+            ctx.fillStyle = '#121216';
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = bezelGrad;
+            ctx.stroke();
+
+            // 2. Draw Rotating Wheel Segments
+            const segments = getSliceAngles();
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(state.currentAngle);
+
+            segments.forEach((seg, i) => {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, wheelRadius, seg.startAngle, seg.endAngle);
+                ctx.closePath();
+
+                // Segment Fill with subtle radial depth
+                const grad = ctx.createRadialGradient(0, 0, 20, 0, 0, wheelRadius);
+                const baseColor = seg.slice.color || PALETTE[i % PALETTE.length];
+                grad.addColorStop(0, '#09090b');
+                grad.addColorStop(0.28, baseColor);
+                grad.addColorStop(1, baseColor);
+
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Gold/Soft Divider Line
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+                ctx.stroke();
+
+                // Draw Slice Label Text
+                ctx.save();
+                ctx.rotate(seg.midAngle);
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#ffffff';
+                
+                // Dynamic font size based on slice count
+                const fontSize = state.slices.length > 8 ? 11 : 13;
+                ctx.font = `800 ${fontSize}px Vazirmatn, sans-serif`;
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+                ctx.shadowBlur = 4;
+
+                let label = seg.slice.text;
+                if (label.length > 18) label = label.substring(0, 17) + '…';
+                ctx.fillText(label, wheelRadius - 16, 0);
+                ctx.restore();
+            });
+
+            // 3. Draw Golden Rim Pegs (Pins)
+            segments.forEach((seg) => {
+                const pegX = Math.cos(seg.startAngle) * (wheelRadius - 3);
+                const pegY = Math.sin(seg.startAngle) * (wheelRadius - 3);
+
+                ctx.beginPath();
+                ctx.arc(pegX, pegY, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#fde68a';
+                ctx.shadowColor = '#f59e0b';
+                ctx.shadowBlur = 6;
+                ctx.fill();
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = '#78350f';
+                ctx.stroke();
+            });
+
+            ctx.restore();
+
+            // 4. Draw Top Pointer Stopper (With Physics Deflection)
+            ctx.save();
+            ctx.translate(cx, 13);
+            ctx.rotate(state.pointerDeflection);
+
+            // Pointer Drop Shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 10;
+
+            ctx.beginPath();
+            ctx.moveTo(-13, -6);
+            ctx.lineTo(13, -6);
+            ctx.lineTo(0, 24);
+            ctx.closePath();
+
+            const pointerGrad = ctx.createLinearGradient(0, -6, 0, 24);
+            pointerGrad.addColorStop(0, '#fbbf24');
+            pointerGrad.addColorStop(1, '#e11d48');
+            ctx.fillStyle = pointerGrad;
+            ctx.fill();
+
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+
+            // Small center rivet on pointer
+            ctx.beginPath();
+            ctx.arc(0, -1, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#121216';
+            ctx.fill();
+
+            ctx.restore();
+            ctx.restore();
+        }
+
+        // 9. REALISTIC SPIN PHYSICS ENGINE
+        function spinWheel() {
+            if (state.isSpinning) return;
+            if (state.slices.length < 2) {
+                showToast('حداقل ۲ گزینه توی گردونه لازم داریم!', '⚠️');
+                return;
+            }
+
+            ensureAudioContext();
+            state.isSpinning = true;
+            document.getElementById('wheelStage').classList.add('wheel-spinning');
+            document.getElementById('mainSpinBtn').disabled = true;
+            document.getElementById('spinCenterBtn').disabled = true;
+
+            // Determine roller for this spin
+            if (state.turnMode === 'auto') {
+                state.activeRoller = state.lastAutoRoller === 'ehsan' ? 'tasnim' : 'ehsan';
+                state.lastAutoRoller = state.activeRoller;
+                updateTurnUI();
+            }
+
+            triggerHaptic('medium');
+
+            const startAngle = state.currentAngle;
+            // Spin between 7 and 11 full rotations + random offset
+            const extraSpins = (7 + Math.random() * 4) * Math.PI * 2;
+            const randomStopOffset = Math.random() * Math.PI * 2;
+            const targetAngle = startAngle + extraSpins + randomStopOffset;
+
+            const duration = 5200; // 5.2 seconds of suspenseful spin
+            const startTime = performance.now();
+
+            // Cubic-bezier style quintic ease-out
+            function easeOutQuint(t) {
+                return 1 - Math.pow(1 - t, 4.4);
+            }
+
+            function animateFrame(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = easeOutQuint(progress);
+
+                state.currentAngle = startAngle + (targetAngle - startAngle) * eased;
+
+                // Detect slice boundary crossing for realistic tick sound & stopper bounce
+                const currentSeg = getWinningSliceAtAngle(state.currentAngle);
+                if (currentSeg && currentSeg.index !== state.lastSliceIndexPassed) {
+                    state.lastSliceIndexPassed = currentSeg.index;
+                    const speedRatio = 1 - progress;
+                    state.pointerDeflection = -0.42 * Math.max(speedRatio, 0.25);
+                    playPegTickSound(speedRatio);
+                    if (progress < 0.88) triggerHaptic('light');
+                }
+
+                // Spring return for pointer stopper
+                state.pointerDeflection *= 0.82;
+
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateFrame);
+                } else {
+                    state.pointerDeflection = 0;
+                    state.currentAngle = state.currentAngle % (Math.PI * 2);
+                    drawWheel();
+                    finishSpin();
+                }
+            }
+
+            requestAnimationFrame(animateFrame);
+        }
+
+        function finishSpin() {
+            state.isSpinning = false;
+            document.getElementById('wheelStage').classList.remove('wheel-spinning');
+            document.getElementById('mainSpinBtn').disabled = false;
+            document.getElementById('spinCenterBtn').disabled = false;
+
+            const winningSeg = getWinningSliceAtAngle(state.currentAngle);
+            if (!winningSeg) return;
+
+            state.lastWinnerSlice = winningSeg.slice;
+            playWinFanfare();
+            triggerHaptic('success');
+            launchConfetti();
+
+            // Record in history
+            const rollerTitle = state.activeRoller === 'ehsan' ? 'احسان 🤴' : 'تسنیم 👸';
+            const nowStr = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+            state.history.unshift({
+                id: Date.now(),
+                text: winningSeg.slice.text,
+                roller: rollerTitle,
+                time: nowStr
+            });
+            if (state.history.length > 30) state.history.pop();
+            try {
+                localStorage.setItem('ehsan_tasnim_wheel_history', JSON.stringify(state.history));
+            } catch (e) {}
+            renderHistoryList();
+
+            // Auto-elimination if checkbox is checked
+            if (state.eliminationMode && state.slices.length > 2) {
+                state.slices = state.slices.filter(s => s.id !== winningSeg.slice.id);
+                persistActiveWheel();
+                renderSliceEditorList();
+                updatePresetBarUI();
+                drawWheel();
+            }
+
+            // Show Winner Modal
+            document.getElementById('winnerRollerBadge').textContent = `${rollerTitle} گردونه رو چرخوند!`;
+            document.getElementById('winnerSliceTitle').textContent = winningSeg.slice.text;
+            
+            const removeBtn = document.getElementById('removeWinnerBtn');
+            removeBtn.style.display = state.slices.length > 2 ? 'block' : 'none';
+
+            const modal = document.getElementById('winnerModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeWinnerModal() {
+            const modal = document.getElementById('winnerModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function removeWinnerAndSpinAgain() {
+            if (state.lastWinnerSlice && state.slices.length > 2) {
+                state.slices = state.slices.filter(s => s.id !== state.lastWinnerSlice.id);
+                persistActiveWheel();
+                renderSliceEditorList();
+                updatePresetBarUI();
+                drawWheel();
+            }
+            closeWinnerModal();
+            setTimeout(() => spinWheel(), 260);
+        }
+
+        function copyWinnerForTelegram() {
+            if (!state.lastWinnerSlice) return;
+            const rollerTitle = state.activeRoller === 'ehsan' ? 'احسان 🤴' : 'تسنیم 👸';
+            const shareText = `🎡 نتیجه گردونه احسان و تسنیم ✨\n👤 چرخاننده: ${rollerTitle}\n🎯 گزینه برنده: « ${state.lastWinnerSlice.text} »`;
+
+            copyTextToClipboard(shareText);
+            showToast('نتیجه کپی شد! حالا توی چت تلگرام پیست کن 📋', '🎉');
+        }
+
+        // 10. SLICE EDITOR & CUSTOMIZATION FUNCTIONS
+        function renderSliceEditorList() {
+            const container = document.getElementById('slicesListContainer');
+            container.innerHTML = '';
+
+            state.slices.forEach((slice, index) => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-2 bg-obsidian-900/90 px-3 py-2 rounded-xl border border-white/5';
+
+                row.innerHTML = `
+                    <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                        <input type="color" value="${slice.color || '#e11d48'}" 
+                            onchange="updateSliceColor('${slice.id}', this.value)"
+                            class="w-6 h-6 rounded-lg border-0 bg-transparent cursor-pointer shrink-0">
+                        <input type="text" value="${escapeHtml(slice.text)}" 
+                            onchange="updateSliceText('${slice.id}', this.value)"
+                            class="bg-transparent text-xs font-bold text-zinc-100 w-full focus:outline-none focus:border-b focus:border-amber-400 truncate">
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="cycleSliceWeight('${slice.id}')" title="تغییر ضریب شانس"
+                            class="px-2 py-1 rounded-lg bg-amber-500/15 border border-amber-400/30 text-[11px] font-extrabold text-amber-300 tabular-nums">
+                            ${toPersianDigits(slice.weight || 1)}x
+                        </button>
+                        <button onclick="deleteSlice('${slice.id}')" title="حذف گزینه"
+                            class="w-7 h-7 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-rose-400 flex items-center justify-center text-xs transition">
+                            ✕
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addNewSlice(e) {
+            e.preventDefault();
+            const textInput = document.getElementById('newSliceText');
+            const colorInput = document.getElementById('newSliceColor');
+            const weightInput = document.getElementById('newSliceWeight');
+
+            const text = textInput.value.trim();
+            if (!text) return;
+
+            state.slices.push({
+                id: 's_' + Date.now(),
+                text,
+                weight: Number(weightInput.value) || 1,
+                color: colorInput.value
+            });
+
+            // Pick next nice color automatically for convenience
+            const nextColor = PALETTE[state.slices.length % PALETTE.length];
+            colorInput.value = nextColor;
+            textInput.value = '';
+            weightInput.value = '1';
+
+            persistActiveWheel();
+            renderSliceEditorList();
+            updatePresetBarUI();
+            drawWheel();
+            triggerHaptic('light');
+            showToast('گزینه جدید به گردونه اضافه شد!', '✨');
+        }
+
+        function updateSliceText(id, newText) {
+            const item = state.slices.find(s => s.id === id);
+            if (item && newText.trim()) {
+                item.text = newText.trim();
+                persistActiveWheel();
+                drawWheel();
+            }
+        }
+
+        function updateSliceColor(id, newColor) {
+            const item = state.slices.find(s => s.id === id);
+            if (item) {
+                item.color = newColor;
+                persistActiveWheel();
+                drawWheel();
+            }
+        }
+
+        function cycleSliceWeight(id) {
+            const item = state.slices.find(s => s.id === id);
+            if (item) {
+                item.weight = ((Number(item.weight) || 1) % 5) + 1;
+                persistActiveWheel();
+                renderSliceEditorList();
+                drawWheel();
+                triggerHaptic('light');
+            }
+        }
+
+        function deleteSlice(id) {
+            if (state.slices.length <= 2) {
+                showToast('گردونه باید حداقل ۲ تا گزینه داشته باشه!', '⚠️');
+                return;
+            }
+            state.slices = state.slices.filter(s => s.id !== id);
+            persistActiveWheel();
+            renderSliceEditorList();
+            updatePresetBarUI();
+            drawWheel();
+            triggerHaptic('light');
+        }
+
+        function shuffleSlices() {
+            if (state.isSpinning) return;
+            for (let i = state.slices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [state.slices[i], state.slices[j]] = [state.slices[j], state.slices[i]];
+            }
+            persistActiveWheel();
+            renderSliceEditorList();
+            drawWheel();
+            triggerHaptic('light');
+            showToast('گزینه‌های گردونه بُر خوردن! 🔀', '🎲');
+        }
+
+        function toggleEliminationMode() {
+            state.eliminationMode = document.getElementById('eliminationToggle').checked;
+            showToast(
+                state.eliminationMode ? 'حالت حذف خودکار برنده فعال شد' : 'حالت حذف خودکار غیرفعال شد',
+                '🎯'
+            );
+        }
+
+        // 11. SHARE / SYNC CODE BETWEEN EHSAN & TASNIM
+        function encodeCurrentWheel() {
+            const compactData = state.slices.map(s => [s.text, s.weight || 1, s.color || '#e11d48']);
+            const jsonStr = JSON.stringify(compactData);
+            return btoa(encodeURIComponent(jsonStr));
+        }
+
+        function applyEncodedWheel(encodedStr) {
+            try {
+                const cleanCode = encodedStr.includes('#wheel=') 
+                    ? encodedStr.split('#wheel=')[1].trim() 
+                    : encodedStr.trim();
+
+                const jsonStr = decodeURIComponent(atob(cleanCode));
+                const parsed = JSON.parse(jsonStr);
+                if (!Array.isArray(parsed) || parsed.length < 2) return false;
+
+                state.slices = parsed.map((arr, idx) => ({
+                    id: 'sync_' + Date.now() + '_' + idx,
+                    text: String(arr[0] || 'گزینه'),
+                    weight: Number(arr[1]) || 1,
+                    color: String(arr[2] || PALETTE[idx % PALETTE.length])
+                }));
+
+                state.currentPresetKey = 'custom';
+                persistActiveWheel();
+                updatePresetBarUI();
+                renderSliceEditorList();
+                drawWheel();
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function openShareModal() {
+            const code = encodeCurrentWheel();
+            document.getElementById('shareCodeOutput').value = code;
+            document.getElementById('shareCodeInput').value = '';
+            const modal = document.getElementById('shareModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById('shareModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyShareCode() {
+            const code = document.getElementById('shareCodeOutput').value;
+            copyTextToClipboard(code);
+            showToast('کد گردونه کپی شد! بفرستش برای تسنیم/احسان 🔗', '📋');
+        }
+
+        function importShareCode() {
+            const rawInput = document.getElementById('shareCodeInput').value.trim();
+            if (!rawInput) return;
+
+            if (applyEncodedWheel(rawInput)) {
+                closeShareModal();
+                triggerHaptic('success');
+                showToast('گردونه با موفقیت همگام‌سازی شد! ✨', '🎉');
+            } else {
+                showToast('کد وارد شده معتبر نیست!', '⚠️');
+            }
+        }
+
+        // 12. HISTORY LOG RENDERING
+        function renderHistoryList() {
+            const container = document.getElementById('historyListContainer');
+            container.innerHTML = '';
+
+            if (state.history.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-6 text-xs text-zinc-500">
+                        هنوز گردونه رو نچرخوندید! اولین چرخش رو امتحان کن ✨
+                    </div>
+                `;
+                return;
+            }
+
+            state.history.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'flex items-center justify-between bg-obsidian-900/90 px-3.5 py-2.5 rounded-xl border border-white/5 text-xs';
+                el.innerHTML = `
+                    <div class="flex items-center gap-2 font-bold text-zinc-100">
+                        <span class="text-amber-400">🎯</span>
+                        <span>${escapeHtml(item.text)}</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px] text-zinc-400 tabular-nums">
+                        <span class="px-2 py-0.5 rounded-md bg-white/5 text-zinc-300 font-semibold">${item.roller}</span>
+                        <span>${item.time}</span>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function clearHistory() {
+            state.history = [];
+            localStorage.removeItem('ehsan_tasnim_wheel_history');
+            renderHistoryList();
+            showToast('تاریخچه چرخش‌ها پاک شد', '🗑️');
+        }
+
+        function switchTab(tab) {
+            const editorTab = document.getElementById('tabContent-editor');
+            const historyTab = document.getElementById('tabContent-history');
+            const editorBtn = document.getElementById('tabBtn-editor');
+            const historyBtn = document.getElementById('tabBtn-history');
+
+            if (tab === 'editor') {
+                editorTab.classList.remove('hidden');
+                editorTab.classList.add('flex');
+                historyTab.classList.add('hidden');
+                historyTab.classList.remove('flex');
+                editorBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition bg-ruby-600 text-white';
+                historyBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition text-zinc-400 hover:text-white';
+            } else {
+                historyTab.classList.remove('hidden');
+                historyTab.classList.add('flex');
+                editorTab.classList.add('hidden');
+                editorTab.classList.remove('flex');
+                historyBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition bg-ruby-600 text-white';
+                editorBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition text-zinc-400 hover:text-white';
+                renderHistoryList();
+            }
+        }
+
+        // 13. PARTICLE CONFETTI ENGINE
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const cCtx = confettiCanvas.getContext('2d');
+        let confettiParticles = [];
+        let confettiAnimating = false;
+
+        function launchConfetti() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+            confettiParticles = [];
+
+            const colors = ['#e11d48', '#fbbf24', '#f43f5e', '#a855f7', '#fde047', '#ffffff'];
+            for (let i = 0; i < 85; i++) {
+                confettiParticles.push({
+                    x: window.innerWidth / 2,
+                    y: window.innerHeight / 2 - 40,
+                    vx: (Math.random() - 0.5) * 16,
+                    vy: (Math.random() - 1) * 16 - 4,
+                    size: 6 + Math.random() * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    vRot: (Math.random() - 0.5) * 12,
+                    gravity: 0.32,
+                    alpha: 1
+                });
+            }
+
+            if (!confettiAnimating) {
+                confettiAnimating = true;
+                requestAnimationFrame(updateConfetti);
+            }
+        }
+
+        function updateConfetti() {
+            cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            confettiParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.gravity;
+                p.rotation += p.vRot;
+                p.alpha -= 0.008;
+
+                cCtx.save();
+                cCtx.globalAlpha = Math.max(p.alpha, 0);
+                cCtx.translate(p.x, p.y);
+                cCtx.rotate((p.rotation * Math.PI) / 180);
+                cCtx.fillStyle = p.color;
+                cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+                cCtx.restore();
+            });
+
+            confettiParticles = confettiParticles.filter(p => p.alpha > 0 && p.y < confettiCanvas.height + 30);
+            if (confettiParticles.length > 0) {
+                requestAnimationFrame(updateConfetti);
+            } else {
+                confettiAnimating = false;
+                cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        // 14. UTILITY HELPERS
+        function toPersianDigits(num) {
+            const persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return String(num).replace(/[0-9]/g, w => persian[+w]);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function copyTextToClipboard(text) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+        }
+
+        let toastTimer = null;
+        function showToast(message, icon = '✨') {
+            const container = document.getElementById('toastContainer');
+            document.getElementById('toastText').textContent = message;
+            document.getElementById('toastIcon').textContent = icon;
+
+            container.classList.remove('opacity-0', '-translate-y-4');
+            container.classList.add('opacity-100', 'translate-y-0');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                container.classList.add('opacity-0', '-translate-y-4');
+                container.classList.remove('opacity-100', 'translate-y-0');
+            }, 2600);
+        }
+
+        // 15. INITIALIZE ON LOAD & RESIZE
+        window.addEventListener('resize', () => {
+            drawWheel();
+        });
+
+        window.onload = function () {
+            loadSavedState();
+            updateTurnUI();
+            updatePresetBarUI();
+            renderSliceEditorList();
+            renderHistoryList();
+            drawWheel();
+        };
+    </script>
+</body>
+</html>
